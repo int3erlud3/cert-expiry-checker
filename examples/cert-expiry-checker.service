@@ -1,0 +1,17 @@
+[Unit]
+Description=Check TLS certificate expiry
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+# File containing CERT_EXPIRY_WEBHOOK_URL=..., readable by root only (mode 0600).
+EnvironmentFile=-/etc/cert-expiry-checker/env
+ExecStart=/opt/cert-expiry-checker/bin/cert-expiry-checker -i /etc/cert-expiry-checker/domains.txt --notify
+SuccessExitStatus=1 2
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+RestrictAddressFamilies=AF_INET AF_INET6

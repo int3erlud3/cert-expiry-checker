@@ -1,0 +1,4 @@
+# One host or host:port per line
+example.com
+www.wikipedia.org
+mail.example.org:465   # SMTPS
