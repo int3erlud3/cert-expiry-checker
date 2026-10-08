@@ -1,6 +1,6 @@
 # cert-expiry-checker
 
-[![CI](https://github.com/OWNER/cert-expiry-checker/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/cert-expiry-checker/actions/workflows/ci.yml)
+[![CI](https://github.com/int3erlud3/cert-expiry-checker/actions/workflows/ci.yml/badge.svg)](https://github.com/int3erlud3/cert-expiry-checker/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -23,7 +23,7 @@ Standard library only – no runtime dependencies.
 ## Installation
 
 ```bash
-git clone https://github.com/OWNER/cert-expiry-checker.git
+git clone https://github.com/int3erlud3/cert-expiry-checker.git
 cd cert-expiry-checker
 python3 -m venv .venv && . .venv/bin/activate
 pip install .
