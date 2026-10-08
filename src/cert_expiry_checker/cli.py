@@ -9,6 +9,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from . import __version__
+from .banner import maybe_print_banner, maybe_print_banner_for_info
 from .checker import EXIT_CODES, Result, Target, check_all, overall_status, parse_target
 from .notify import WEBHOOK_ENV, WebhookError, build_payload, send, webhook_url_from_env
 
@@ -46,6 +47,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--workers", type=int, default=8, choices=range(1, 33), metavar="1-32")
     p.add_argument("--notify", action="store_true", help=f"send a webhook to ${WEBHOOK_ENV} on problems")
     p.add_argument("--notify-always", action="store_true", help="with --notify: also send when all OK")
+    p.add_argument(
+        "--no-banner", action="store_true", help="do not print the startup banner (or set NO_BANNER=1)"
+    )
     p.add_argument("-V", "--version", action="version", version=f"%(prog)s {__version__}")
     return p
 
@@ -72,7 +76,11 @@ def render_table(results: list[Result]) -> str:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    argv = list(sys.argv[1:] if argv is None else argv)
+    maybe_print_banner_for_info(argv)
     args = build_parser().parse_args(argv)
+    if args.format != "json":  # never mix the banner with machine-readable output
+        maybe_print_banner(args.no_banner)
     if args.crit > args.warn:
         print("error: --crit must not be greater than --warn", file=sys.stderr)
         return 3

@@ -4,6 +4,25 @@
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+```text
+              _                    _
+   __ ___ _ _| |_ ___ _____ ___ __(_)_ _ _  _
+  / _/ -_) '_|  _|___/ -_) \ / '_ \ | '_| || |
+  \__\___|_|  \__|   \___/_\_\ .__/_|_|  \_, |
+                             |_|         |__/
+      _           _
+   __| |_  ___ __| |_____ _ _
+  / _| ' \/ -_) _| / / -_) '_|
+  \__|_||_\___\__|_\_\___|_|
+
++====================================================================+
+|  CERT EXPIRY CHECKER  ::  TLS Certificate Expiry Monitor           |
++--------------------------------------------------------------------+
+|  Catch expiring certificates before your users do                  |
+|  v1.0.0  -  Bastion Ops Toolkit  -  by int3erlud3                  |
++====================================================================+
+```
+
 Check TLS certificates of many hosts in parallel, warn before they expire and
 optionally post a summary to a chat webhook (Slack, Mattermost, Teams, …).
 Standard library only – no runtime dependencies.
@@ -68,6 +87,15 @@ A systemd service + timer example is in [`examples/`](examples/).
 | `--notify` | off | POST a summary when status is not OK |
 | `--notify-always` | off | With `--notify`: also when everything is OK |
 | `CERT_EXPIRY_WEBHOOK_URL` | – | Webhook URL (**https only**), see `.env.example` |
+| `--no-banner` / `NO_BANNER=1` | off | Suppress the startup banner (shown on a terminal only) |
+
+## Startup banner
+
+Part of the **Bastion Ops Toolkit**. When run interactively, `cert-expiry-checker` prints the
+banner shown above to **stderr** – only if stderr is a terminal and never together with `--format json`. Pipes,
+cron jobs, systemd units and monitoring agents see exactly the same output and exit
+codes as before. Disable it with `--no-banner` or `NO_BANNER=1`; `--help` and
+`--version` show it on a terminal too.
 
 ## Development
 
